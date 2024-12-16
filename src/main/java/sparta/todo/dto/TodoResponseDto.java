@@ -10,6 +10,8 @@ public class TodoResponseDto {
 
     private final Long id;
 
+    private final String userName;
+
     private final String title;
 
     private final String contents;
@@ -20,6 +22,7 @@ public class TodoResponseDto {
 
     public TodoResponseDto(Todo todo) {
         this.id = todo.getId();
+        this.userName = todo.getUser().getUserName();
         this.title = todo.getTitle();
         this.contents = todo.getContents();
         this.createdAt = todo.getCreatedAt();

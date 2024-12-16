@@ -17,7 +17,7 @@ public class TodoController {
 
     @PostMapping
     public TodoResponseDto saveTodo(@RequestBody TodoRequestDto todoRequestDto) {
-        return todoService.saveTodo(todoRequestDto.getTitle(), todoRequestDto.getContents());
+        return todoService.saveTodo(todoRequestDto.getId(), todoRequestDto.getTitle(), todoRequestDto.getContents());
     }
 
     @GetMapping("/{id}")

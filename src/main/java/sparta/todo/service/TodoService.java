@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sparta.todo.dto.TodoResponseDto;
 import sparta.todo.entity.Todo;
+import sparta.todo.entity.User;
+import sparta.todo.repository.TodoRepository;
+import sparta.todo.repository.UserRepository;
 import sparta.todo.repository.TodoRepository;
 
 import java.util.Optional;
@@ -14,10 +17,16 @@ import java.util.Optional;
 public class TodoService {
 
     private final TodoRepository todoRepository;
+    private final UserRepository userRepository;
 
-    public TodoResponseDto saveTodo(String title, String contents) {
+    public TodoResponseDto saveTodo(Long id, String title, String contents) {
 
-        Todo savedTodo = todoRepository.save(new Todo(title, contents));
+        User findUser = userRepository.findByIdOrElseThrow(id);
+
+        Todo todo = new Todo(title, contents);
+        todo.setUser(findUser);
+
+        Todo savedTodo = todoRepository.save(todo);
 
         return new TodoResponseDto(savedTodo);
     }

@@ -1,5 +1,6 @@
 package sparta.todo.entity;
 
+import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +18,10 @@ public class Todo extends BaseEntity {
     private String title;
     private String contents;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Todo(String title, String contents) {
         this.title = title;
         this.contents = contents;
@@ -29,4 +34,9 @@ public class Todo extends BaseEntity {
         this.title = title;
         this.contents = contents;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }
