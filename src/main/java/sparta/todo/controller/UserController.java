@@ -14,8 +14,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public UserResponseDto saveUser(@RequestBody UserRequestDto userRequestDto) {
-        return userService.save(userRequestDto.getUserName(), userRequestDto.getEmail());
+    public UserResponseDto signUpUser(@RequestBody UserRequestDto userRequestDto) {
+        return userService.save(userRequestDto.getUserName(), userRequestDto.getEmail(), userRequestDto.getPassword());
     }
 
     @GetMapping("/{id}")
