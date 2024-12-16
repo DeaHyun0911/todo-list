@@ -8,6 +8,9 @@ import sparta.todo.entity.Todo;
 import sparta.todo.entity.User;
 import sparta.todo.repository.TodoRepository;
 import sparta.todo.repository.UserRepository;
+import sparta.todo.repository.TodoRepository;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

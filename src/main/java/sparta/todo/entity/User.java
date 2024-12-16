@@ -27,4 +27,5 @@ public class User extends BaseEntity {
     public void updateUserName(String userName) {
         this.userName = userName;
     }
+
 }
