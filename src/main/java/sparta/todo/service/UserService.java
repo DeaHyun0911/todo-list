@@ -11,10 +11,13 @@ import sparta.todo.dto.LoginResponseDto;
 import sparta.todo.dto.UserResponseDto;
 import sparta.todo.entity.Todo;
 import sparta.todo.entity.User;
+import sparta.todo.exception.ExistsEmailException;
 import sparta.todo.exception.PasswordMismatchException;
 import sparta.todo.repository.UserRepository;
 
 import java.net.PasswordAuthentication;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +26,10 @@ public class UserService {
     private final UserRepository userRepository;
 
     public UserResponseDto save(String userName, String email, String password) {
+        if(userRepository.existsByEmail(email)) {
+            throw new ExistsEmailException();
+        }
+
         User user = userRepository.save(new User(userName, email, password));
 
         return new UserResponseDto(user);

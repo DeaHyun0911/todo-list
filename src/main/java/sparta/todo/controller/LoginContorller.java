@@ -1,6 +1,7 @@
 package sparta.todo.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,12 +21,12 @@ public class LoginContorller {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public UserResponseDto signUp(@RequestBody UserRequestDto userRequestDto) {
+    public UserResponseDto signUp(@Valid @RequestBody UserRequestDto userRequestDto) {
         return userService.save(userRequestDto.getUserName(), userRequestDto.getEmail(), userRequestDto.getPassword());
     }
 
     @PostMapping("/login")
-    public LoginResponseDto login(@RequestBody LoginRequestDto requestDto, HttpServletRequest request) {
+    public LoginResponseDto login(@Valid @RequestBody LoginRequestDto requestDto, HttpServletRequest request) {
         return userService.login(requestDto.getEmail(), requestDto.getPassword(), request);
     }
 

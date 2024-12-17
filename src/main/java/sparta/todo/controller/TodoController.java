@@ -1,5 +1,6 @@
 package sparta.todo.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import sparta.todo.dto.TodoRequestDto;
@@ -16,7 +17,7 @@ public class TodoController {
     private final TodoService todoService;
 
     @PostMapping
-    public TodoResponseDto saveTodo(@RequestBody TodoRequestDto todoRequestDto) {
+    public TodoResponseDto saveTodo(@Valid @RequestBody TodoRequestDto todoRequestDto) {
         return todoService.saveTodo(todoRequestDto.getId(), todoRequestDto.getTitle(), todoRequestDto.getContents());
     }
 
@@ -27,7 +28,7 @@ public class TodoController {
 
     @PutMapping("/{id}")
     public TodoResponseDto updateTodo(@PathVariable Long id,
-                                      @RequestBody TodoRequestDto todoRequestDto) {
+                                      @Valid @RequestBody TodoRequestDto todoRequestDto) {
         return todoService.updateTodo(id, todoRequestDto.getTitle(), todoRequestDto.getContents());
     }
 

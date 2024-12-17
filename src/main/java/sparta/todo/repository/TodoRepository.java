@@ -5,9 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 import sparta.todo.entity.Todo;
 
+import java.util.NoSuchElementException;
+
 public interface TodoRepository extends JpaRepository<Todo, Long> {
 
     default Todo findByIdOrElseThrow(Long id) {
-        return findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않는 ID 입니다."));
+        return findById(id).orElseThrow(() -> new NoSuchElementException("존재하지 않는 일정 입니다."));
     }
 }
