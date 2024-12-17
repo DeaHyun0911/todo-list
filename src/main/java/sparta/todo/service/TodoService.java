@@ -8,9 +8,6 @@ import sparta.todo.entity.Todo;
 import sparta.todo.entity.User;
 import sparta.todo.repository.TodoRepository;
 import sparta.todo.repository.UserRepository;
-import sparta.todo.repository.TodoRepository;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,16 +19,15 @@ public class TodoService {
     public TodoResponseDto saveTodo(Long id, String title, String contents) {
 
         User findUser = userRepository.findByIdOrElseThrow(id);
-
         Todo todo = new Todo(title, contents);
         todo.setUser(findUser);
-
         Todo savedTodo = todoRepository.save(todo);
 
         return new TodoResponseDto(savedTodo);
     }
 
     public TodoResponseDto findById(Long id) {
+
         Todo todo = todoRepository.findByIdOrElseThrow(id);
 
         return new TodoResponseDto(todo);
@@ -39,8 +35,8 @@ public class TodoService {
 
     @Transactional
     public TodoResponseDto updateTodo(Long id, String title, String contents) {
-        Todo todo = todoRepository.findByIdOrElseThrow(id);
 
+        Todo todo = todoRepository.findByIdOrElseThrow(id);
         todo.updateTodo(title, contents);
 
         return new TodoResponseDto(todo);

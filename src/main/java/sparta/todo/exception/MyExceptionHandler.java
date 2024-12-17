@@ -17,11 +17,13 @@ public class MyExceptionHandler {
         return new ErrorResult("404 NOT_FOUND", e.getMessage());
     }
 
+
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(PasswordMismatchException.class)
     public ErrorResult handlePasswordMismatchException(PasswordMismatchException e) {
         return new ErrorResult("401 UNAUTHORIZED", e.getMessage());
     }
+
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -33,6 +35,7 @@ public class MyExceptionHandler {
 
         return new ErrorResult("400 BAD_REQUEST", message);
     }
+
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ExistsEmailException.class)
