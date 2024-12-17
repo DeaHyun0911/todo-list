@@ -26,7 +26,6 @@ public class LoginCheckFilter implements Filter {
 
         log.info("로그인 필터 로직 실행");
 
-
         if(!isWhiteList(requestURI)) {
             log.info("인증 체크 로직 실행 {}", requestURI);
             HttpSession session = httpRequest.getSession(false);
