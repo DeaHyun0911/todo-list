@@ -28,4 +28,8 @@ public class TodoResponseDto {
         this.createdAt = todo.getCreatedAt();
         this.updatedAt = todo.getUpdatedAt();
     }
+
+    public static TodoResponseDto toDto(Todo todo) {
+        return new TodoResponseDto(todo);
+    }
 }

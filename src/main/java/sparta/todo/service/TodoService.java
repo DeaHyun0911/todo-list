@@ -9,6 +9,9 @@ import sparta.todo.entity.User;
 import sparta.todo.repository.TodoRepository;
 import sparta.todo.repository.UserRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TodoService {
@@ -44,5 +47,12 @@ public class TodoService {
 
     public void deleteTodo(Long id) {
         todoRepository.deleteById(id);
+    }
+
+    public List<TodoResponseDto> findTodoList() {
+        return todoRepository.findAll()
+                .stream()
+                .map(TodoResponseDto::toDto)
+                .toList();
     }
 }

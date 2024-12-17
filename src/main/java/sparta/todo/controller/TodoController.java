@@ -8,6 +8,8 @@ import sparta.todo.dto.TodoResponseDto;
 import sparta.todo.repository.TodoRepository;
 import sparta.todo.service.TodoService;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/todos")
@@ -24,6 +26,11 @@ public class TodoController {
     @GetMapping("/{id}")
     public TodoResponseDto findById(@PathVariable Long id) {
         return todoService.findById(id);
+    }
+
+    @GetMapping
+    public List<TodoResponseDto> findTodoList() {
+        return todoService.findTodoList();
     }
 
     @PutMapping("/{id}")
