@@ -2,7 +2,11 @@ package sparta.todo.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+import sparta.todo.dto.TodoPageResponseDto;
 import sparta.todo.dto.TodoRequestDto;
 import sparta.todo.dto.TodoResponseDto;
 import sparta.todo.repository.TodoRepository;
@@ -29,8 +33,8 @@ public class TodoController {
     }
 
     @GetMapping
-    public List<TodoResponseDto> findTodoList() {
-        return todoService.findTodoList();
+    public Page<TodoResponseDto> findTodoList(@PageableDefault(size = 10) Pageable pageable) {
+        return todoService.findTodoList(pageable);
     }
 
     @PutMapping("/{id}")
