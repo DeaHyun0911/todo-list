@@ -1,9 +1,6 @@
 package sparta.todo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 @Getter
@@ -14,7 +11,10 @@ public class User extends BaseEntity {
     private Long id;
 
     private String userName;
+
+    @Column(unique = true)
     private String email;
+
     private String password;
 
     public User(String userName, String email, String password) {
