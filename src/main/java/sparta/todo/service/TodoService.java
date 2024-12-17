@@ -1,16 +1,16 @@
 package sparta.todo.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sparta.todo.dto.TodoPageResponseDto;
 import sparta.todo.dto.TodoResponseDto;
 import sparta.todo.entity.Todo;
 import sparta.todo.entity.User;
 import sparta.todo.repository.TodoRepository;
 import sparta.todo.repository.UserRepository;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -49,10 +49,16 @@ public class TodoService {
         todoRepository.deleteById(id);
     }
 
-    public List<TodoResponseDto> findTodoList() {
-        return todoRepository.findAll()
-                .stream()
-                .map(TodoResponseDto::toDto)
-                .toList();
+    public Page<TodoResponseDto> findTodoList(Pageable pageable) {
+
+//        return todoRepository.findAll()
+//                .stream()
+//                .map(TodoResponseDto::toDto)
+//                .toList();
+
+        Page<Todo> todoList = todoRepository.findAllByOrderByUpdatedAtDesc(pageable);
+
+
+        return todoList.map(TodoResponseDto::toDto);
     }
 }
