@@ -1,12 +1,20 @@
 package sparta.todo.service;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sparta.todo.SessionConst;
+import sparta.todo.dto.LoginResponseDto;
 import sparta.todo.dto.UserResponseDto;
 import sparta.todo.entity.Todo;
 import sparta.todo.entity.User;
+import sparta.todo.exception.PasswordMismatchException;
 import sparta.todo.repository.UserRepository;
+
+import java.net.PasswordAuthentication;
 
 @Service
 @RequiredArgsConstructor
@@ -37,5 +45,19 @@ public class UserService {
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public LoginResponseDto login(String email, String password, HttpServletRequest request) {
+        System.out.println(userRepository.findByEmail(email));
+        User user = userRepository.findByEmailOrElseThrow(email);
+
+        if (!user.getPassword().equals(password)) {
+            throw new PasswordMismatchException();
+        }
+
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.LOGIN_USER, user);
+
+        return new LoginResponseDto(user.getEmail(), session.getId());
     }
 }

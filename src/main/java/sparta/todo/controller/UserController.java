@@ -1,7 +1,10 @@
 package sparta.todo.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import sparta.todo.dto.LoginRequestDto;
+import sparta.todo.dto.LoginResponseDto;
 import sparta.todo.dto.UserRequestDto;
 import sparta.todo.dto.UserResponseDto;
 import sparta.todo.service.UserService;
@@ -12,11 +15,6 @@ import sparta.todo.service.UserService;
 public class UserController {
 
     private final UserService userService;
-
-    @PostMapping
-    public UserResponseDto signUpUser(@RequestBody UserRequestDto userRequestDto) {
-        return userService.save(userRequestDto.getUserName(), userRequestDto.getEmail(), userRequestDto.getPassword());
-    }
 
     @GetMapping("/{id}")
     public UserResponseDto findById(@PathVariable Long id) {
