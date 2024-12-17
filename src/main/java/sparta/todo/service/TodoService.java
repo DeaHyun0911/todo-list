@@ -46,7 +46,9 @@ public class TodoService {
     }
 
     public void deleteTodo(Long id) {
-        todoRepository.deleteById(id);
+        Todo todo = todoRepository.findByIdOrElseThrow(id);
+
+        todoRepository.delete(todo);
     }
 
     public Page<TodoResponseDto> findTodoList(Pageable pageable) {
