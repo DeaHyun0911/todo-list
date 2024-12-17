@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sparta.todo.SessionConst;
+import sparta.todo.config.PasswordEncoder;
 import sparta.todo.dto.LoginResponseDto;
 import sparta.todo.dto.UserResponseDto;
 import sparta.todo.entity.Todo;
@@ -24,13 +25,16 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UserResponseDto save(String userName, String email, String password) {
         if(userRepository.existsByEmail(email)) {
             throw new ExistsEmailException();
         }
 
-        User user = userRepository.save(new User(userName, email, password));
+        String encodedPassword = passwordEncoder.encode(password);
+
+        User user = userRepository.save(new User(userName, email, encodedPassword));
 
         return new UserResponseDto(user);
     }
@@ -58,7 +62,7 @@ public class UserService {
         System.out.println(userRepository.findByEmail(email));
         User user = userRepository.findByEmailOrElseThrow(email);
 
-        if (!user.getPassword().equals(password)) {
+        if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new PasswordMismatchException();
         }
 
