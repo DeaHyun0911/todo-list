@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import sparta.todo.dto.TodoPageResponseDto;
 import sparta.todo.dto.TodoRequestDto;
 import sparta.todo.dto.TodoResponseDto;
-import sparta.todo.repository.TodoRepository;
 import sparta.todo.service.TodoService;
-
-import java.util.List;
 
 
 @RestController
@@ -32,19 +29,27 @@ public class TodoController {
         return todoService.findById(id);
     }
 
+// 구버전 페이지네이션
 //    @GetMapping
-    public Page<TodoResponseDto> findTodoList(@PageableDefault(size = 10) Pageable pageable) {
-        return todoService.findTodoList(pageable);
-    }
+//    public Page<TodoResponseDto> findTodoList(@PageableDefault(size = 10) Pageable pageable) {
+//        return todoService.findTodoList(pageable);
+//    }
 
+    /**
+     * 댓글개수를 추가한 TodoPageResponseDto 객체로 반환
+     * @param pageable
+     * @return
+     */
     @GetMapping
     public Page<TodoPageResponseDto> findTodoListV2(@PageableDefault(size = 10) Pageable pageable) {
         return todoService.findTodoListV2(pageable);
     }
 
     @PutMapping("/{id}")
-    public TodoResponseDto updateTodo(@PathVariable Long id,
-                                      @Valid @RequestBody TodoRequestDto todoRequestDto) {
+    public TodoResponseDto updateTodo(
+            @PathVariable Long id,
+            @Valid @RequestBody TodoRequestDto todoRequestDto)
+    {
         return todoService.updateTodo(id, todoRequestDto.getTitle(), todoRequestDto.getContents());
     }
 

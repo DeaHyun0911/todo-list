@@ -1,6 +1,5 @@
 package sparta.todo.dto;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
 
 @Getter
