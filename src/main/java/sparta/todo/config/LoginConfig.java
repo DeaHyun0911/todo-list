@@ -1,4 +1,4 @@
-package sparta.todo;
+package sparta.todo.config;
 
 import jakarta.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
