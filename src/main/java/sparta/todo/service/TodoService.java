@@ -50,15 +50,12 @@ public class TodoService {
     }
 
     public Page<TodoResponseDto> findTodoList(Pageable pageable) {
-
-//        return todoRepository.findAll()
-//                .stream()
-//                .map(TodoResponseDto::toDto)
-//                .toList();
-
         Page<Todo> todoList = todoRepository.findAllByOrderByUpdatedAtDesc(pageable);
-
-
         return todoList.map(TodoResponseDto::toDto);
     }
+
+    public Page<TodoPageResponseDto> findTodoListV2(Pageable pageable) {
+        return todoRepository.findAllV2(pageable);
+    }
+
 }
