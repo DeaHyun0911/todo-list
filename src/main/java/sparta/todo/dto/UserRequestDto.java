@@ -9,13 +9,15 @@ import lombok.Getter;
 @Getter
 public class UserRequestDto {
 
-    @NotBlank(message = "유저명은 공백일 수 없습니다.")
+    @NotBlank
     @Size(max = 4)
     private final String userName;
 
+    @NotBlank
     @Pattern(regexp = "^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", message = "이메일형식이 아닙니다.")
     private final String email;
 
+    @NotBlank
     private final String password;
 
     public UserRequestDto(String userName, String email, String password) {
