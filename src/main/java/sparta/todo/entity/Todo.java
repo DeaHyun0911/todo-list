@@ -5,7 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import org.hibernate.validator.constraints.Length;
 
 @Getter
 @Entity
@@ -16,6 +20,7 @@ public class Todo extends BaseEntity {
     private Long id;
 
     private String title;
+
     private String contents;
 
     @ManyToOne
