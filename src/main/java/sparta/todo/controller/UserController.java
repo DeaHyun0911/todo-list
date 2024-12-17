@@ -1,10 +1,7 @@
 package sparta.todo.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import sparta.todo.dto.LoginRequestDto;
-import sparta.todo.dto.LoginResponseDto;
 import sparta.todo.dto.UserRequestDto;
 import sparta.todo.dto.UserResponseDto;
 import sparta.todo.service.UserService;
