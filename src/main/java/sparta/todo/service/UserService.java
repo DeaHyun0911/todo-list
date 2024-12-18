@@ -54,9 +54,12 @@ public class UserService {
     }
 
 
-    public void deleteUser(Long id)
+    public void deleteUser(Long id, String password)
     {
         User user = userRepository.findByIdOrElseThrow(id);
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new PasswordMismatchException();
+        }
         userRepository.delete(user);
     }
 
