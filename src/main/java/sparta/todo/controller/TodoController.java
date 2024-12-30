@@ -40,9 +40,14 @@ public class TodoController {
      * @param pageable
      * @return
      */
+//    @GetMapping
+//    public Page<TodoPageResponseDto> findTodoListV2(@PageableDefault(size = 10) Pageable pageable) {
+//        return todoService.findTodoListV2(pageable);
+//    }
+
     @GetMapping
-    public Page<TodoPageResponseDto> findTodoListV2(@PageableDefault(size = 10) Pageable pageable) {
-        return todoService.findTodoListV2(pageable);
+    public Page<TodoPageResponseDto> findTodoListV3(@PageableDefault(size = 10) Pageable pageable) {
+        return todoService.findTodoListV3(pageable);
     }
 
     @PutMapping("/{id}")

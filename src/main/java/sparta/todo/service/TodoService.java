@@ -2,6 +2,7 @@ package sparta.todo.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +12,8 @@ import sparta.todo.entity.Todo;
 import sparta.todo.entity.User;
 import sparta.todo.repository.TodoRepository;
 import sparta.todo.repository.UserRepository;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -56,8 +59,18 @@ public class TodoService {
         return todoList.map(TodoResponseDto::toDto);
     }
 
-    public Page<TodoPageResponseDto> findTodoListV2(Pageable pageable) {
-        return todoRepository.findAllV2(pageable);
+//    public Page<TodoPageResponseDto> findTodoListV2(Pageable pageable) {
+//        return todoRepository.findAllV2(pageable);
+//    }
+
+    public Page<TodoPageResponseDto> findTodoListV3(Pageable pageable) {
+        Page<Todo> todos = todoRepository.findAllwithComments(pageable);
+
+        List<TodoPageResponseDto> content = todos.stream()
+                .map(todo -> new TodoPageResponseDto(todo, todo.getComments().size()))
+                .toList();
+
+        return new PageImpl<>(content, pageable, content.size());
     }
 
 }

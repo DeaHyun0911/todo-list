@@ -22,10 +22,13 @@ public interface TodoRepository extends JpaRepository<Todo, Long> {
      * @param pageable
      * @return
      */
-    @Query("SELECT new sparta.todo.dto.TodoPageResponseDto(t, COUNT(c)) " +
-            "FROM Todo t LEFT JOIN Comment c ON t.id = c.todo.id " +
-            "GROUP BY t.id, t.title, t.contents, t.user, t.createdAt, t.updatedAt " +
-            "ORDER BY t.updatedAt DESC")
-    Page<TodoPageResponseDto> findAllV2(Pageable pageable);
+//    @Query("SELECT new sparta.todo.dto.TodoPageResponseDto(t, COUNT(c)) " +
+//            "FROM Todo t LEFT JOIN Comment c ON t.id = c.todo.id " +
+//            "GROUP BY t.id, t.title, t.contents, t.user, t.createdAt, t.updatedAt " +
+//            "ORDER BY t.updatedAt DESC")
+//    Page<TodoPageResponseDto> findAllV2(Pageable pageable);
+
+    @Query("SELECT t FROM Todo t LEFT JOIN t.comments c GROUP BY t.id ORDER BY t.updatedAt DESC")
+    Page<Todo> findAllwithComments(Pageable pageable);
 
 }

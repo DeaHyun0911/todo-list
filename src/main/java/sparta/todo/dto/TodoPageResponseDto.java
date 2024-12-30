@@ -12,7 +12,7 @@ public class TodoPageResponseDto {
 
     private final String contents;
 
-    private final Long commentCount;
+    private final int commentCount;
 
     private final String userName;
 
@@ -20,7 +20,7 @@ public class TodoPageResponseDto {
 
     private final LocalDateTime updatedAt;
 
-    public TodoPageResponseDto(Todo todo, Long commentCount) {
+    public TodoPageResponseDto(Todo todo, int commentCount) {
         this.userName = todo.getUser().getUserName();
         this.title = todo.getTitle();
         this.contents = todo.getContents();
